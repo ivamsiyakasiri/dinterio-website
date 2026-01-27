@@ -51,7 +51,7 @@ export default function ContactPage() {
                                 <h2 className="text-xl md:text-2xl font-serif font-bold text-dark mb-4">
                                     Why Choose D'Interio?
                                 </h2>
-                                <ul className="space-y-3 text-foreground/70">
+                                <ul className="space-y-3 text-dark/70">
                                     <li className="flex items-start gap-3">
                                         <span className="w-6 h-6 bg-gold/10 rounded-full flex items-center justify-center shrink-0 mt-0.5">
                                             <span className="w-2 h-2 bg-gold rounded-full" />

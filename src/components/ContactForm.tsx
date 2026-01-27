@@ -71,11 +71,11 @@ export default function ContactForm({
 
     const isDark = variant === "dark";
     const inputClasses = isDark
-        ? "w-full bg-black/30 border border-white/20 rounded-sm px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-gold transition-colors"
-        : "w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 text-dark placeholder-foreground/40 focus:outline-none focus:border-gold transition-colors";
+        ? "w-full bg-black/50 border border-white/20 rounded-sm px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-gold transition-colors"
+        : "w-full bg-gray-50 border border-gray-200 rounded-sm px-4 py-3 text-dark placeholder-dark/40 focus:outline-none focus:border-gold transition-colors";
     const labelClasses = isDark
         ? "block text-xs uppercase tracking-widest text-white/60 mb-2 font-bold"
-        : "block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold";
+        : "block text-xs uppercase tracking-widest text-dark/60 mb-2 font-bold";
 
     if (submitted) {
         return (
@@ -105,7 +105,7 @@ export default function ContactForm({
                 </h3>
             )}
             {subtitle && (
-                <p className={`text-sm mb-6 ${isDark ? "text-white/60" : "text-foreground/60"}`}>
+                <p className={`text-sm mb-6 ${isDark ? "text-white/60" : "text-dark/60"}`}>
                     {subtitle}
                 </p>
             )}

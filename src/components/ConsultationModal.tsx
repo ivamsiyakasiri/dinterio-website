@@ -90,7 +90,7 @@ const ConsultationModal = () => {
                                         <CheckCircle size={40} />
                                     </motion.div>
                                     <h3 className="text-2xl font-serif font-bold text-dark mb-2">Request Received!</h3>
-                                    <p className="text-foreground/60 mb-6">Our design expert will call you shortly to discuss your luxury project.</p>
+                                    <p className="text-dark/60 mb-6">Our design expert will call you shortly to discuss your luxury project.</p>
                                     <p className="text-gold font-bold">Closing in 3 seconds...</p>
                                 </div>
                             ) : (
@@ -102,7 +102,7 @@ const ConsultationModal = () => {
                                         <h2 className="text-2xl md:text-3xl font-serif font-bold text-dark">
                                             Book Your Session
                                         </h2>
-                                        <p className="text-foreground/60 text-sm mt-2">
+                                        <p className="text-dark/60 text-sm mt-2">
                                             Min. Project Value: <span className="text-gold font-bold">₹50,00,000</span>
                                         </p>
                                     </div>
@@ -115,7 +115,7 @@ const ConsultationModal = () => {
                                                 placeholder="Full Name *"
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors"
+                                                className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors bg-white text-dark placeholder-dark/40"
                                             />
                                             <input
                                                 type="tel"
@@ -123,7 +123,7 @@ const ConsultationModal = () => {
                                                 placeholder="Phone Number *"
                                                 value={formData.phone}
                                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors"
+                                                className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors bg-white text-dark placeholder-dark/40"
                                             />
                                         </div>
                                         <input
@@ -131,14 +131,14 @@ const ConsultationModal = () => {
                                             placeholder="Email Address"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors"
+                                            className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors bg-white text-dark placeholder-dark/40"
                                         />
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <select
                                                 required
                                                 value={formData.propertyType}
                                                 onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
-                                                className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-foreground/70"
+                                                className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-dark bg-white"
                                             >
                                                 <option value="">Property Type *</option>
                                                 <option value="villa">Villa / Independent House</option>
@@ -150,7 +150,7 @@ const ConsultationModal = () => {
                                                 required
                                                 value={formData.budget}
                                                 onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                                                className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-foreground/70"
+                                                className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-dark bg-white"
                                             >
                                                 <option value="">Budget Range *</option>
                                                 <option value="50-75">₹50 Lakhs - ₹75 Lakhs</option>
@@ -164,7 +164,7 @@ const ConsultationModal = () => {
                                             placeholder="About your project (Optional)"
                                             value={formData.message}
                                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                            className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors resize-none"
+                                            className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors resize-none bg-white text-dark placeholder-dark/40"
                                         />
                                         {error && <p className="text-red-500 text-xs text-center">{error}</p>}
                                         <button
@@ -182,7 +182,7 @@ const ConsultationModal = () => {
                                                 </>
                                             )}
                                         </button>
-                                        <div className="flex items-center justify-center gap-2 text-foreground/40 text-xs mt-4">
+                                        <div className="flex items-center justify-center gap-2 text-dark/40 text-xs mt-4">
                                             <Phone size={12} />
                                             <span>Or call us directly at <a href="tel:+919100222233" className="text-gold font-bold">+91 9100222233</a></span>
                                         </div>

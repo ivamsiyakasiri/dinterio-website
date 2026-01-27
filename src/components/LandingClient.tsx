@@ -117,12 +117,12 @@ export default function LandingClient() {
                         </div>
 
                         {/* Right - Lead Form */}
-                        <div className="bg-white rounded-lg shadow-2xl p-6 md:p-8 max-w-md mx-auto lg:mx-0 lg:ml-auto">
+                        <div className="bg-white rounded-lg shadow-2xl p-6 md:p-8 max-w-md mx-auto lg:mx-0 lg:ml-auto text-dark">
                             {submitted ? (
                                 <div className="text-center py-8">
                                     <CheckCircle size={64} className="mx-auto text-green-500 mb-4" />
                                     <h3 className="text-2xl font-serif font-bold text-dark mb-2">Thank You!</h3>
-                                    <p className="text-foreground/60 mb-6">Our design expert will call you within 2 hours.</p>
+                                    <p className="text-dark/60 mb-6">Our design expert will call you within 2 hours.</p>
                                     <a href="tel:+919100222233" className="inline-flex items-center gap-2 bg-gold text-white px-8 py-3 rounded-sm font-bold">
                                         <Phone size={18} /> CALL NOW
                                     </a>
@@ -131,28 +131,28 @@ export default function LandingClient() {
                                 <>
                                     <div className="text-center mb-6">
                                         <h2 className="text-2xl font-serif font-bold text-dark">Get Free Consultation</h2>
-                                        <p className="text-foreground/60 text-sm mt-1">Fill the form & get a callback in 2 hours</p>
+                                        <p className="text-dark/60 text-sm mt-1">Fill the form & get a callback in 2 hours</p>
                                     </div>
 
                                     <form onSubmit={handleSubmit} className="space-y-4">
-                                        <input type="text" required placeholder="Your Name *" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors" />
-                                        <input type="tel" required placeholder="Phone Number *" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors" />
-                                        <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors" />
-                                        <select value={formData.propertyType} onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-foreground/70">
+                                        <input type="text" required placeholder="Your Name *" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors bg-white text-dark placeholder-dark/40" />
+                                        <input type="tel" required placeholder="Phone Number *" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors bg-white text-dark placeholder-dark/40" />
+                                        <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors bg-white text-dark placeholder-dark/40" />
+                                        <select value={formData.propertyType} onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-dark bg-white">
                                             <option value="">Property Type</option>
                                             <option value="villa">Villa / Independent House</option>
                                             <option value="apartment">Apartment / Flat</option>
                                             <option value="penthouse">Penthouse</option>
                                             <option value="commercial">Commercial / Office</option>
                                         </select>
-                                        <select value={formData.budget} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-foreground/70">
+                                        <select value={formData.budget} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-dark bg-white">
                                             <option value="">Budget Range</option>
                                             <option value="50-75">₹50 Lakhs - ₹75 Lakhs</option>
                                             <option value="75-100">₹75 Lakhs - ₹1 Crore</option>
                                             <option value="100-150">₹1 Crore - ₹1.5 Crores</option>
                                             <option value="150+">₹1.5 Crores+</option>
                                         </select>
-                                        <textarea rows={2} placeholder="Tell us about your project" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors resize-none" />
+                                        <textarea rows={2} placeholder="Tell us about your project" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors resize-none bg-white text-dark placeholder-dark/40" />
                                         {error && <p className="text-red-500 text-xs text-center">{error}</p>}
                                         <button
                                             type="submit"
@@ -171,7 +171,7 @@ export default function LandingClient() {
                                         </button>
                                     </form>
 
-                                    <p className="text-center text-xs text-foreground/40 mt-4">
+                                    <p className="text-center text-xs text-dark/40 mt-4">
                                         🔒 Your information is 100% secure
                                     </p>
                                 </>

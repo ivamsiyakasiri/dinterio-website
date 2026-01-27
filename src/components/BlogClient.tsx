@@ -132,7 +132,7 @@ export default function BlogClient() {
                         <h2 className="text-xl font-serif font-bold mb-6 text-dark">Submit Your Article</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">
+                                <label className="block text-xs uppercase tracking-widest text-dark/60 mb-2 font-bold">
                                     Your Name
                                 </label>
                                 <input
@@ -140,12 +140,12 @@ export default function BlogClient() {
                                     required
                                     value={formData.author}
                                     onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                                    className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors"
+                                    className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-dark bg-white placeholder-dark/40"
                                     placeholder="John Doe"
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">
+                                <label className="block text-xs uppercase tracking-widest text-dark/60 mb-2 font-bold">
                                     Article Title
                                 </label>
                                 <input
@@ -153,12 +153,12 @@ export default function BlogClient() {
                                     required
                                     value={formData.title}
                                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                    className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors"
+                                    className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-dark bg-white placeholder-dark/40"
                                     placeholder="Your amazing article title"
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">
+                                <label className="block text-xs uppercase tracking-widest text-dark/60 mb-2 font-bold">
                                     Short Excerpt
                                 </label>
                                 <input
@@ -166,12 +166,12 @@ export default function BlogClient() {
                                     required
                                     value={formData.excerpt}
                                     onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                                    className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors"
+                                    className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-dark bg-white placeholder-dark/40"
                                     placeholder="A brief summary of your article (1-2 sentences)"
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">
+                                <label className="block text-xs uppercase tracking-widest text-dark/60 mb-2 font-bold">
                                     Full Content
                                 </label>
                                 <textarea
@@ -184,7 +184,7 @@ export default function BlogClient() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">
+                                <label className="block text-xs uppercase tracking-widest text-dark/60 mb-2 font-bold">
                                     Main Image *
                                 </label>
                                 <input
@@ -213,7 +213,7 @@ export default function BlogClient() {
                                     <button
                                         type="button"
                                         onClick={() => fileInputRef.current?.click()}
-                                        className="w-full flex flex-col items-center justify-center border-2 border-dashed border-gray-200 hover:border-gold rounded-sm p-8 text-foreground/40 hover:text-gold transition-all bg-white group"
+                                        className="w-full flex flex-col items-center justify-center border-2 border-dashed border-gray-200 hover:border-gold rounded-sm p-8 text-dark/40 hover:text-gold transition-all bg-white group"
                                     >
                                         <Upload size={32} className="mb-2 group-hover:scale-110 transition-transform" />
                                         <span className="text-sm font-medium">Click to upload main image</span>
@@ -240,7 +240,7 @@ export default function BlogClient() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">
+                                    <label className="block text-xs uppercase tracking-widest text-dark/60 mb-2 font-bold">
                                         Related Links / Backlinks
                                     </label>
                                     <div className="flex gap-2 mb-3">
@@ -248,14 +248,14 @@ export default function BlogClient() {
                                             type="text"
                                             value={newLink.label}
                                             onChange={(e) => setNewLink({ ...newLink, label: e.target.value })}
-                                            className="w-1/3 border border-gray-200 rounded-sm px-3 py-2 focus:outline-none focus:border-gold transition-colors text-xs"
+                                            className="w-1/3 border border-gray-200 rounded-sm px-3 py-2 focus:outline-none focus:border-gold transition-colors text-xs text-dark bg-white placeholder-dark/40"
                                             placeholder="Label"
                                         />
                                         <input
                                             type="url"
                                             value={newLink.url}
                                             onChange={(e) => setNewLink({ ...newLink, url: e.target.value })}
-                                            className="flex-1 border border-gray-200 rounded-sm px-3 py-2 focus:outline-none focus:border-gold transition-colors text-xs"
+                                            className="flex-1 border border-gray-200 rounded-sm px-3 py-2 focus:outline-none focus:border-gold transition-colors text-xs text-dark bg-white placeholder-dark/40"
                                             placeholder="URL"
                                         />
                                         <button
@@ -289,7 +289,7 @@ export default function BlogClient() {
                                 <button
                                     type="button"
                                     onClick={() => setShowSubmitForm(false)}
-                                    className="border border-gray-300 text-foreground/60 px-8 py-3 rounded-sm font-bold text-sm tracking-wider transition-all hover:border-gold"
+                                    className="border border-gray-300 text-dark/60 px-8 py-3 rounded-sm font-bold text-sm tracking-wider transition-all hover:border-gold"
                                 >
                                     CANCEL
                                 </button>
@@ -337,7 +337,7 @@ export default function BlogClient() {
                     <div className="mt-16 pt-12 border-t border-gray-200">
                         <button
                             onClick={() => setShowArchived(!showArchived)}
-                            className="flex items-center gap-2 text-foreground/60 hover:text-gold transition-colors mb-8"
+                            className="flex items-center gap-2 text-dark/60 hover:text-gold transition-colors mb-8"
                         >
                             <Archive size={20} />
                             <span className="font-bold uppercase tracking-widest text-sm">
