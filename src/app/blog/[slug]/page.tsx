@@ -57,7 +57,16 @@ export default function BlogPost() {
                     <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
                 </div>
 
-                <article className="prose prose-lg max-w-none text-dark/70 leading-relaxed font-light space-y-8 mb-16">
+                <article className="prose prose-lg max-w-none mb-16 
+                    text-dark 
+                    prose-headings:text-dark 
+                    prose-p:text-dark/80 
+                    prose-li:text-dark/80 
+                    prose-strong:text-dark 
+                    prose-strong:font-bold
+                    prose-a:text-gold 
+                    prose-blockquote:text-dark/60
+                    prose-img:rounded-sm">
                     <div
                         className="blog-content"
                         dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, "<br/>") }}
