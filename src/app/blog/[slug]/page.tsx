@@ -43,7 +43,7 @@ export default function BlogPost() {
                 </Link>
 
                 <header className="mb-12">
-                    <div className="flex items-center gap-6 text-foreground/40 text-xs uppercase tracking-[0.2em] mb-6">
+                    <div className="flex items-center gap-6 text-dark/40 text-xs uppercase tracking-[0.2em] mb-6">
                         <span className="flex items-center gap-2"><User size={14} /> {post.author}</span>
                         <span className="flex items-center gap-2"><Clock size={14} /> {post.date}</span>
                         {post.status === "pending" && <span className="text-yellow-600 bg-yellow-50 px-2 py-0.5 rounded-sm">Pending Review</span>}
@@ -57,7 +57,7 @@ export default function BlogPost() {
                     <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
                 </div>
 
-                <article className="prose prose-lg max-w-none text-foreground/70 leading-relaxed font-light space-y-8 mb-16">
+                <article className="prose prose-lg max-w-none text-dark/70 leading-relaxed font-light space-y-8 mb-16">
                     <div
                         className="blog-content"
                         dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, "<br/>") }}

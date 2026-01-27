@@ -42,7 +42,7 @@ export default function ProjectDetailPage() {
                 {/* Back Link */}
                 <Link
                     href="/portfolio"
-                    className="inline-flex items-center gap-2 text-foreground/60 hover:text-gold font-bold text-sm tracking-wider mb-8 transition-colors"
+                    className="inline-flex items-center gap-2 text-dark/60 hover:text-gold font-bold text-sm tracking-wider mb-8 transition-colors"
                 >
                     <ArrowLeft size={18} /> BACK TO PORTFOLIO
                 </Link>
@@ -66,14 +66,14 @@ export default function ProjectDetailPage() {
                         <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-dark mb-4">
                             {project.name}
                         </h1>
-                        <p className="text-foreground/60 text-base md:text-lg leading-relaxed mb-6">
+                        <p className="text-dark/60 text-base md:text-lg leading-relaxed mb-6">
                             {project.description}
                         </p>
                         <div className="flex flex-wrap gap-3 mb-8">
                             <span className="px-4 py-2 bg-gold/10 text-gold text-sm font-bold rounded-sm">
                                 {project.category}
                             </span>
-                            <span className="px-4 py-2 bg-gray-100 text-foreground/70 text-sm font-medium rounded-sm flex items-center gap-2">
+                            <span className="px-4 py-2 bg-gray-100 text-dark/70 text-sm font-medium rounded-sm flex items-center gap-2">
                                 <Grid3X3 size={14} /> {project.images.length} Photos
                             </span>
                         </div>
