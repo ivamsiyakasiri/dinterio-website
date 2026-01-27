@@ -13,7 +13,7 @@ export default function HomeClient() {
             <Hero />
 
             {/* Services Section */}
-            <section className="py-24 bg-white px-4 h-full">
+            <section className="py-24 bg-white text-dark px-4 h-full">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
                         <span className="text-gold uppercase tracking-[0.3em] font-semibold text-sm mb-2 block">
@@ -54,8 +54,8 @@ export default function HomeClient() {
                                 <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold group-hover:text-white transition-all duration-500">
                                     <service.icon size={30} />
                                 </div>
-                                <h3 className="text-xl font-serif font-bold mb-4">{service.title}</h3>
-                                <p className="text-foreground/60 leading-relaxed text-sm">
+                                <h3 className="text-xl font-serif font-bold mb-4 text-dark">{service.title}</h3>
+                                <p className="text-dark/60 leading-relaxed text-sm">
                                     {service.desc}
                                 </p>
                             </div>
@@ -122,7 +122,7 @@ export default function HomeClient() {
                         <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-dark">
                             Completed Project Videos
                         </h2>
-                        <p className="mt-4 text-foreground/60 max-w-2xl mx-auto font-light leading-relaxed text-sm md:text-base px-4">
+                        <p className="mt-4 text-dark/60 max-w-2xl mx-auto font-light leading-relaxed text-sm md:text-base px-4">
                             Experience our craftsmanship through these video walkthroughs of our recently completed interior projects.
                         </p>
                     </div>
@@ -168,7 +168,7 @@ export default function HomeClient() {
                                     <span key={i} className="text-2xl">{star}</span>
                                 ))}
                             </div>
-                            <span className="text-foreground/60 font-medium">5.0 Rating on Google</span>
+                            <span className="text-dark/60 font-medium">5.0 Rating on Google</span>
                         </div>
                     </div>
 
@@ -211,10 +211,10 @@ export default function HomeClient() {
                                         <span key={j} className="text-lg">{star}</span>
                                     ))}
                                 </div>
-                                <p className="text-foreground/70 text-sm leading-relaxed mb-6 italic">"{testimonial.review}"</p>
+                                <p className="text-dark/70 text-sm leading-relaxed mb-6 italic">"{testimonial.review}"</p>
                                 <div className="border-t border-gray-200 pt-4">
                                     <p className="font-bold text-dark">{testimonial.name}</p>
-                                    <p className="text-xs text-foreground/50">{testimonial.location}</p>
+                                    <p className="text-xs text-dark/50">{testimonial.location}</p>
                                 </div>
                             </div>
                         ))}

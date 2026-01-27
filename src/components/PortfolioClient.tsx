@@ -13,7 +13,7 @@ export default function PortfolioClient() {
     const archivedProjects = getArchivedProjects();
 
     return (
-        <div className="pt-32 pb-24 bg-white">
+        <div className="pt-32 pb-24 bg-white text-dark">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12 md:mb-16">
@@ -23,7 +23,7 @@ export default function PortfolioClient() {
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-dark">
                         Project Portfolio
                     </h1>
-                    <p className="mt-4 text-foreground/60 max-w-2xl mx-auto font-light leading-relaxed text-sm md:text-base px-4">
+                    <p className="mt-4 text-dark/60 max-w-2xl mx-auto font-light leading-relaxed text-sm md:text-base px-4">
                         Explore our luxury turnkey interior projects across India. Minimum project value ₹50,00,000.
                     </p>
                 </div>
@@ -65,11 +65,11 @@ export default function PortfolioClient() {
                                 <h2 className="text-lg md:text-xl font-serif font-bold text-dark group-hover:text-gold transition-colors duration-300">
                                     {project.name}
                                 </h2>
-                                <p className="text-foreground/60 text-sm mt-2 line-clamp-2">
+                                <p className="text-dark/60 text-sm mt-2 line-clamp-2">
                                     {project.description}
                                 </p>
                                 <div className="mt-3">
-                                    <span className="inline-block px-3 py-1 bg-gray-100 text-xs text-foreground/70 rounded-full">
+                                    <span className="inline-block px-3 py-1 bg-gray-100 text-xs text-dark/70 rounded-full">
                                         {project.category}
                                     </span>
                                 </div>
@@ -83,7 +83,7 @@ export default function PortfolioClient() {
                     <div className="mt-16 pt-12 border-t border-gray-200">
                         <button
                             onClick={() => setShowArchived(!showArchived)}
-                            className="flex items-center gap-2 text-foreground/60 hover:text-gold transition-colors mb-8"
+                            className="flex items-center gap-2 text-dark/60 hover:text-gold transition-colors mb-8"
                         >
                             <Archive size={20} />
                             <span className="font-bold uppercase tracking-widest text-sm">
@@ -103,7 +103,7 @@ export default function PortfolioClient() {
                                                 className="w-full h-full object-cover"
                                             />
                                         </div>
-                                        <span className="text-foreground/40 text-xs uppercase tracking-widest mb-2 block">
+                                        <span className="text-dark/40 text-xs uppercase tracking-widest mb-2 block">
                                             {project.location} • Archived
                                         </span>
                                         <h3 className="text-lg font-serif font-bold text-dark">

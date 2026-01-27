@@ -88,7 +88,7 @@ export default function BlogClient() {
     };
 
     return (
-        <div className="pt-32 pb-24 bg-white">
+        <div className="pt-32 pb-24 bg-white text-dark">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12 md:mb-16">
@@ -98,7 +98,7 @@ export default function BlogClient() {
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-dark">
                         The Design Blog
                     </h1>
-                    <p className="mt-4 text-foreground/60 max-w-2xl mx-auto font-light leading-relaxed text-sm md:text-base px-4">
+                    <p className="mt-4 text-dark/60 max-w-2xl mx-auto font-light leading-relaxed text-sm md:text-base px-4">
                         Expert advice, design inspiration, and updates from the world of luxury interiors. Minimum project value ₹50,00,000.
                     </p>
                 </div>
@@ -179,7 +179,7 @@ export default function BlogClient() {
                                     rows={6}
                                     value={formData.content}
                                     onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                                    className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors resize-none"
+                                    className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors resize-none text-dark"
                                     placeholder="Write your full article content here..."
                                 />
                             </div>
@@ -235,7 +235,7 @@ export default function BlogClient() {
                                         type="url"
                                         value={youtubeUrl}
                                         onChange={(e) => setYoutubeUrl(e.target.value)}
-                                        className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-sm"
+                                        className="w-full border border-gray-200 rounded-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors text-sm text-dark"
                                         placeholder="https://www.youtube.com/watch?v=..."
                                     />
                                 </div>
@@ -318,7 +318,7 @@ export default function BlogClient() {
                                         {post.title}
                                     </h2>
                                 </Link>
-                                <p className="text-foreground/60 text-sm leading-relaxed mb-6 flex-1">
+                                <p className="text-dark/60 text-sm leading-relaxed mb-6 flex-1">
                                     {post.excerpt}
                                 </p>
                                 <Link
@@ -363,7 +363,7 @@ export default function BlogClient() {
                                         <h3 className="text-lg font-serif font-bold text-dark mb-2">
                                             {post.title}
                                         </h3>
-                                        <p className="text-foreground/60 text-sm leading-relaxed">
+                                        <p className="text-dark/60 text-sm leading-relaxed">
                                             {post.excerpt}
                                         </p>
                                     </article>

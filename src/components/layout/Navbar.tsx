@@ -43,7 +43,7 @@ const Navbar = () => {
       <nav
         className={cn(
           "fixed w-full z-40 transition-all duration-300 top-0 md:top-8",
-          scrolled ? "bg-white/95 backdrop-blur-md shadow-lg py-2" : "bg-white/80 backdrop-blur-md py-4"
+          scrolled ? "bg-white/95 backdrop-blur-md shadow-lg py-2 text-dark" : "bg-white/80 backdrop-blur-md py-4 text-dark"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,7 +91,7 @@ const Navbar = () => {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-foreground p-2 focus:outline-none"
+                className="text-dark p-2 focus:outline-none"
               >
                 {isOpen ? <X size={28} /> : <Menu size={28} />}
               </button>

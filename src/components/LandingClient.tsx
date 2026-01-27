@@ -199,7 +199,7 @@ export default function LandingClient() {
             </section>
 
             {/* Services */}
-            <section className="py-16 md:py-24 bg-white">
+            <section className="py-16 md:py-24 bg-white text-dark">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
                         <span className="text-gold uppercase tracking-widest font-bold text-sm">What We Offer</span>
@@ -216,7 +216,7 @@ export default function LandingClient() {
                             <div key={i} className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-xl transition-all">
                                 <span className="text-4xl">{service.icon}</span>
                                 <h3 className="text-lg font-bold text-dark mt-4">{service.title}</h3>
-                                <p className="text-foreground/60 text-sm mt-2">{service.desc}</p>
+                                <p className="text-dark/60 text-sm mt-2">{service.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -285,7 +285,7 @@ export default function LandingClient() {
             {/* Areas Served */}
             <section className="py-12 bg-white">
                 <div className="max-w-7xl mx-auto px-4 text-center">
-                    <p className="text-foreground/60 mb-4">Serving Clients Across India</p>
+                    <p className="text-dark/60 mb-4">Serving Clients Across India</p>
                     <div className="flex flex-wrap justify-center gap-3">
                         {["Hyderabad", "Jubilee Hills", "Banjara Hills", "Gachibowli", "HITEC City", "Bangalore", "Mumbai", "Delhi NCR"].map((city, i) => (
                             <span key={i} className="px-4 py-2 bg-gray-100 rounded-full text-sm font-medium">{city}</span>
