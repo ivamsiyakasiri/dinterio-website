@@ -47,7 +47,7 @@ const Navbar = () => {
       <nav
         className={cn(
           "fixed w-full z-40 transition-all duration-300",
-          isLanding ? "top-10 md:top-8" : "top-0 md:top-8",
+          isLanding ? "top-16 md:top-8" : "top-0 md:top-8",
           scrolled ? "bg-white/95 backdrop-blur-md shadow-lg py-2 text-dark" : "bg-white/80 backdrop-blur-md py-4 text-dark"
         )}
       >
