@@ -8,11 +8,15 @@ import { useModal } from "@/lib/ModalContext";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+import { usePathname } from "next/navigation";
+
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const isLanding = pathname === "/landing";
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { openModal } = useModal();
@@ -42,7 +46,8 @@ const Navbar = () => {
       </div>
       <nav
         className={cn(
-          "fixed w-full z-40 transition-all duration-300 top-0 md:top-8",
+          "fixed w-full z-40 transition-all duration-300",
+          isLanding ? "top-10 md:top-8" : "top-0 md:top-8",
           scrolled ? "bg-white/95 backdrop-blur-md shadow-lg py-2 text-dark" : "bg-white/80 backdrop-blur-md py-4 text-dark"
         )}
       >

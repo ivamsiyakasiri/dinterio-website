@@ -63,7 +63,7 @@ export default function LandingClient() {
             </div>
 
             {/* Hero Section */}
-            <section className="pt-32 md:pt-16 min-h-screen relative overflow-hidden flex items-center">
+            <section className="pt-48 md:pt-16 min-h-screen relative overflow-hidden flex items-center">
                 {/* Background */}
                 <div className="absolute inset-0">
                     <img src="/images/hero-1.png" alt="Luxury Interior" className="w-full h-full object-cover opacity-30" />
