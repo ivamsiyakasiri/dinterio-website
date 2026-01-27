@@ -53,11 +53,7 @@ export default function LandingClient() {
         <div className="min-h-screen bg-dark">
             {/* Sticky CTA Bar */}
             <div className="fixed top-0 left-0 right-0 z-50 bg-gold py-2 px-4 text-center">
-                <p className="text-white text-sm font-medium flex items-center justify-center gap-2 flex-wrap">
-                    <Phone size={14} className="animate-pulse" />
-                    <span>Call Now for Free Consultation:</span>
-                    <a href="tel:+919100222233" className="font-bold underline">+91 9100222233</a>
-                    <span className="hidden md:inline">|</span>
+                <p className="text-white text-sm font-medium flex items-center justify-center gap-2">
                     <span className="font-bold">Min. Project: ₹50 Lakhs</span>
                 </p>
             </div>
