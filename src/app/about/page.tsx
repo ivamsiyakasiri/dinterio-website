@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
     return (
-        <div className="pt-32 pb-24">
+        <div className="pt-32 pb-24 text-dark bg-white">
             {/* Hero Section */}
             <section className="bg-dark text-white py-20 md:py-28">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,13 +50,13 @@ export default function AboutPage() {
                             <h2 className="text-3xl md:text-4xl font-serif font-bold text-dark">
                                 Crafting Exceptional Spaces Since Day One
                             </h2>
-                            <p className="text-foreground/70 text-base md:text-lg leading-relaxed">
+                            <p className="text-dark/70 text-base md:text-lg leading-relaxed">
                                 D'Interio Design Studio was founded with a singular vision: to transform ordinary spaces into extraordinary living and working environments. Based in Hyderabad, we have grown to become one of the most trusted names in luxury interior design.
                             </p>
-                            <p className="text-foreground/70 text-base md:text-lg leading-relaxed">
+                            <p className="text-dark/70 text-base md:text-lg leading-relaxed">
                                 Our team of expert designers and craftsmen work in harmony to deliver excellence, combining innovative design thinking with traditional craftsmanship. Every project we undertake is a testament to our commitment to quality and our clients' unique vision.
                             </p>
-                            <p className="text-foreground/70 text-base md:text-lg leading-relaxed">
+                            <p className="text-dark/70 text-base md:text-lg leading-relaxed">
                                 With projects across India — from Hyderabad and Bangalore to Mumbai and Delhi — we bring luxury interiors to discerning clients who demand nothing but the best.
                             </p>
                         </div>
@@ -78,7 +78,7 @@ export default function AboutPage() {
                                 <h3 className="text-3xl md:text-4xl font-serif font-bold text-gold mb-2">
                                     {stat.number}
                                 </h3>
-                                <p className="text-foreground/60 text-sm uppercase tracking-widest">
+                                <p className="text-dark/60 text-sm uppercase tracking-widest">
                                     {stat.label}
                                 </p>
                             </div>
@@ -140,7 +140,7 @@ export default function AboutPage() {
                                     <value.icon size={28} />
                                 </div>
                                 <h3 className="text-xl font-serif font-bold mb-4 text-dark">{value.title}</h3>
-                                <p className="text-foreground/60 leading-relaxed text-sm">{value.desc}</p>
+                                <p className="text-dark/60 leading-relaxed text-sm">{value.desc}</p>
                             </div>
                         ))}
                     </div>

@@ -48,7 +48,7 @@ const services = [
 
 export default function ServicesPage() {
     return (
-        <div className="pt-32 pb-24">
+        <div className="pt-32 pb-24 text-dark bg-white">
             {/* Hero Section */}
             <section className="bg-dark text-white py-20 md:py-28">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,12 +81,12 @@ export default function ServicesPage() {
                                 <h3 className="text-xl font-serif font-bold mb-4 text-dark group-hover:text-gold transition-colors">
                                     {service.title}
                                 </h3>
-                                <p className="text-foreground/60 leading-relaxed text-sm mb-6">
+                                <p className="text-dark/60 leading-relaxed text-sm mb-6">
                                     {service.desc}
                                 </p>
                                 <ul className="space-y-2">
                                     {service.features.map((feature, j) => (
-                                        <li key={j} className="flex items-center gap-2 text-sm text-foreground/70">
+                                        <li key={j} className="flex items-center gap-2 text-sm text-dark/70">
                                             <CheckCircle size={14} className="text-gold shrink-0" />
                                             {feature}
                                         </li>
@@ -122,7 +122,7 @@ export default function ServicesPage() {
                                     {phase.step}
                                 </div>
                                 <h3 className="text-lg font-serif font-bold mb-3 text-dark">{phase.title}</h3>
-                                <p className="text-foreground/60 text-sm leading-relaxed">{phase.desc}</p>
+                                <p className="text-dark/60 text-sm leading-relaxed">{phase.desc}</p>
                             </div>
                         ))}
                     </div>
