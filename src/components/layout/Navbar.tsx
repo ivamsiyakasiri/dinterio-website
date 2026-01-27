@@ -15,8 +15,6 @@ function cn(...inputs: ClassValue[]) {
 }
 
 const Navbar = () => {
-  const pathname = usePathname();
-  const isLanding = pathname?.includes("landing");
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { openModal } = useModal();
@@ -46,8 +44,7 @@ const Navbar = () => {
       </div>
       <nav
         className={cn(
-          "fixed w-full z-40 transition-all duration-300",
-          isLanding ? "!top-[110px] md:!top-8" : "top-0 md:top-8",
+          "fixed w-full z-40 transition-all duration-300 top-0 md:top-8",
           scrolled ? "bg-white/95 backdrop-blur-md shadow-lg py-2 text-dark" : "bg-white/80 backdrop-blur-md py-4 text-dark"
         )}
       >
@@ -59,7 +56,7 @@ const Navbar = () => {
                 <img
                   src="/images/logo-cropped.png"
                   alt="Dinterio Design Studio"
-                  className="h-16 md:h-24 w-auto"
+                  className="h-24 w-auto"
                 />
               </Link>
             </div>
