@@ -53,24 +53,17 @@ export default function LandingClient() {
         <div className="min-h-screen bg-dark">
             {/* Sticky CTA Bar */}
             <div className="fixed top-0 left-0 right-0 z-50 bg-gold py-2 px-4 text-center">
-                <p className="text-white text-xs md:text-sm font-medium flex items-center justify-center gap-2 flex-wrap">
+                <p className="text-white text-sm font-medium flex items-center justify-center gap-2 flex-wrap">
                     <Phone size={14} className="animate-pulse" />
-                    <span className="hidden sm:inline">Call Now for Free Consultation:</span>
+                    <span>Call Now for Free Consultation:</span>
                     <a href="tel:+919100222233" className="font-bold underline">+91 9100222233</a>
                     <span className="hidden md:inline">|</span>
                     <span className="font-bold">Min. Project: ₹50 Lakhs</span>
                 </p>
             </div>
 
-            {/* Landing Header / Logo */}
-            <div className="absolute top-16 left-0 right-0 z-40 px-4 flex justify-center md:justify-start max-w-7xl mx-auto">
-                <Link href="/">
-                    <img src="/images/logo-cropped.png" alt="Dinterio" className="h-20 md:h-24 w-auto drop-shadow-lg" />
-                </Link>
-            </div>
-
             {/* Hero Section */}
-            <section className="pt-32 md:pt-16 min-h-screen relative overflow-hidden flex items-center">
+            <section className="pt-16 min-h-screen relative overflow-hidden flex items-center">
                 {/* Background */}
                 <div className="absolute inset-0">
                     <img src="/images/hero-1.png" alt="Luxury Interior" className="w-full h-full object-cover opacity-30" />
