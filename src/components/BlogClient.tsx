@@ -26,12 +26,36 @@ export default function BlogClient() {
     const approvedBlogs = getApprovedBlogs();
     const archivedBlogs = getArchivedBlogs();
 
-    const fileToBase64 = (file: File): Promise<string> => {
+    // Compress and resize image to reduce localStorage usage
+    const compressImage = (file: File, maxWidth = 1200, quality = 0.7): Promise<string> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = (error) => reject(error);
+            reader.onload = (event) => {
+                const img = document.createElement('img');
+                img.src = event.target?.result as string;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxWidth) {
+                        height = (height * maxWidth) / width;
+                        width = maxWidth;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx?.drawImage(img, 0, 0, width, height);
+
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+                    resolve(compressedBase64);
+                };
+                img.onerror = reject;
+            };
+            reader.onerror = reject;
         });
     };
 
@@ -40,7 +64,7 @@ export default function BlogClient() {
         if (file) {
             setIsUploading(true);
             try {
-                const base64 = await fileToBase64(file);
+                const base64 = await compressImage(file);
                 setImagePreview(base64);
             } catch (err) {
                 console.error("Error uploading image:", err);

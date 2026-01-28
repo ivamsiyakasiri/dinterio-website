@@ -59,13 +59,38 @@ export default function AdminPage() {
         }
     };
 
-    // Convert file to base64
-    const fileToBase64 = (file: File): Promise<string> => {
+    // Compress and resize image to reduce localStorage usage
+    const compressImage = (file: File, maxWidth = 1200, quality = 0.7): Promise<string> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = (error) => reject(error);
+            reader.onload = (event) => {
+                const img = document.createElement('img');
+                img.src = event.target?.result as string;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Scale down if larger than maxWidth
+                    if (width > maxWidth) {
+                        height = (height * maxWidth) / width;
+                        width = maxWidth;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx?.drawImage(img, 0, 0, width, height);
+
+                    // Convert to compressed JPEG
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+                    resolve(compressedBase64);
+                };
+                img.onerror = reject;
+            };
+            reader.onerror = reject;
         });
     };
 
@@ -75,7 +100,7 @@ export default function AdminPage() {
         if (file) {
             setUploading(true);
             try {
-                const base64 = await fileToBase64(file);
+                const base64 = await compressImage(file);
                 setMainImagePreview(base64);
             } catch (err) {
                 console.error("Error uploading image:", err);
@@ -93,7 +118,7 @@ export default function AdminPage() {
                 const newImages: string[] = [];
                 const filesToProcess = Math.min(files.length, 50 - galleryPreviews.length);
                 for (let i = 0; i < filesToProcess; i++) {
-                    const base64 = await fileToBase64(files[i]);
+                    const base64 = await compressImage(files[i]);
                     newImages.push(base64);
                 }
                 setGalleryPreviews((prev) => [...prev, ...newImages].slice(0, 50));
