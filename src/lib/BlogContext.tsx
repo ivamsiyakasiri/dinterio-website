@@ -54,13 +54,27 @@ export function BlogProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    // Save data to localStorage when changed
+    // Save data to localStorage when changed (with error handling)
     useEffect(() => {
-        localStorage.setItem("dinterio_blogs", JSON.stringify(blogs));
+        try {
+            localStorage.setItem("dinterio_blogs", JSON.stringify(blogs));
+        } catch (e) {
+            if (e instanceof DOMException && e.name === 'QuotaExceededError') {
+                alert("Storage full! Please delete some old blog posts to free up space.");
+            }
+            console.error("Failed to save blogs:", e);
+        }
     }, [blogs]);
 
     useEffect(() => {
-        localStorage.setItem("dinterio_projects", JSON.stringify(projects));
+        try {
+            localStorage.setItem("dinterio_projects", JSON.stringify(projects));
+        } catch (e) {
+            if (e instanceof DOMException && e.name === 'QuotaExceededError') {
+                alert("Storage full! Please delete some old projects to free up space. Go to Admin → Portfolio Management and delete projects you no longer need.");
+            }
+            console.error("Failed to save projects:", e);
+        }
     }, [projects]);
 
     // Auth

@@ -26,8 +26,8 @@ export default function BlogClient() {
     const approvedBlogs = getApprovedBlogs();
     const archivedBlogs = getArchivedBlogs();
 
-    // Compress and resize image to reduce localStorage usage
-    const compressImage = (file: File, maxWidth = 1200, quality = 0.7): Promise<string> => {
+    // Compress and resize image to reduce localStorage usage (aggressive settings)
+    const compressImage = (file: File, maxWidth = 800, quality = 0.5): Promise<string> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);

@@ -59,8 +59,8 @@ export default function AdminPage() {
         }
     };
 
-    // Compress and resize image to reduce localStorage usage
-    const compressImage = (file: File, maxWidth = 1200, quality = 0.7): Promise<string> => {
+    // Compress and resize image to reduce localStorage usage (aggressive settings)
+    const compressImage = (file: File, maxWidth = 800, quality = 0.5): Promise<string> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -116,12 +116,12 @@ export default function AdminPage() {
             setUploading(true);
             try {
                 const newImages: string[] = [];
-                const filesToProcess = Math.min(files.length, 50 - galleryPreviews.length);
+                const filesToProcess = Math.min(files.length, 10 - galleryPreviews.length);
                 for (let i = 0; i < filesToProcess; i++) {
                     const base64 = await compressImage(files[i]);
                     newImages.push(base64);
                 }
-                setGalleryPreviews((prev) => [...prev, ...newImages].slice(0, 50));
+                setGalleryPreviews((prev) => [...prev, ...newImages].slice(0, 10));
             } catch (err) {
                 console.error("Error uploading images:", err);
             }
@@ -151,7 +151,7 @@ export default function AdminPage() {
             category: newProject.category,
             description: newProject.description,
             mainImage: mainImagePreview,
-            images: allImages.slice(0, 50),
+            images: allImages.slice(0, 10),
         });
 
         // Reset form
@@ -310,10 +310,10 @@ export default function AdminPage() {
 
                                     {/* Gallery Images Upload */}
                                     <div>
-                                        <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">Gallery Images (Max 50)</label>
+                                        <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">Gallery Images (Max 10)</label>
                                         <input type="file" ref={galleryRef} accept="image/*" multiple onChange={handleGalleryUpload} className="hidden" />
-                                        <button type="button" onClick={() => galleryRef.current?.click()} disabled={galleryPreviews.length >= 50} className={`flex items-center gap-2 border-2 border-dashed rounded-sm px-6 py-4 transition-colors w-full justify-center mb-4 ${galleryPreviews.length >= 50 ? "border-gray-200 text-gray-400 cursor-not-allowed" : "border-gray-300 hover:border-gold text-foreground/60 hover:text-gold"}`}>
-                                            <Upload size={20} /> Add gallery images ({galleryPreviews.length}/50)
+                                        <button type="button" onClick={() => galleryRef.current?.click()} disabled={galleryPreviews.length >= 10} className={`flex items-center gap-2 border-2 border-dashed rounded-sm px-6 py-4 transition-colors w-full justify-center mb-4 ${galleryPreviews.length >= 10 ? "border-gray-200 text-gray-400 cursor-not-allowed" : "border-gray-300 hover:border-gold text-foreground/60 hover:text-gold"}`}>
+                                            <Upload size={20} /> Add gallery images ({galleryPreviews.length}/10)
                                         </button>
                                         {galleryPreviews.length > 0 && (
                                             <div className="flex flex-wrap gap-3">
