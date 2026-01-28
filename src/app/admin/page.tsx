@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { Lock, LogOut, Check, Archive, Trash2, Eye, Clock, FileText, AlertCircle, Image, Plus, FolderOpen, Upload, X, Youtube, ExternalLink } from "lucide-react";
 import { useBlog } from "@/lib/BlogContext";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export default function AdminPage() {
     const {
@@ -69,20 +70,13 @@ export default function AdminPage() {
         });
     };
 
-    // Upload image to Cloudinary
-    const uploadToCloudinary = async (base64Image: string, folder: string = 'dinterio/portfolio'): Promise<string> => {
-        const response = await fetch('/api/upload', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ image: base64Image, folder }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to upload image');
+    // Upload image using client-side Cloudinary upload
+    const handleCloudinaryUpload = async (base64Image: string, folder: string = 'dinterio/portfolio'): Promise<string> => {
+        const result = await uploadToCloudinary(base64Image, folder);
+        if (!result.success || !result.url) {
+            throw new Error(result.error || 'Upload failed');
         }
-
-        const data = await response.json();
-        return data.url;
+        return result.url;
     };
 
     // Handle main image upload
@@ -95,7 +89,7 @@ export default function AdminPage() {
                 // Show preview immediately
                 setMainImagePreview(base64);
                 // Upload to Cloudinary in background
-                const cloudinaryUrl = await uploadToCloudinary(base64);
+                const cloudinaryUrl = await handleCloudinaryUpload(base64);
                 setMainImagePreview(cloudinaryUrl);
             } catch (err) {
                 console.error("Error uploading image:", err);
@@ -116,7 +110,7 @@ export default function AdminPage() {
                 for (let i = 0; i < filesToProcess; i++) {
                     const base64 = await fileToBase64(files[i]);
                     // Upload each image to Cloudinary
-                    const cloudinaryUrl = await uploadToCloudinary(base64);
+                    const cloudinaryUrl = await handleCloudinaryUpload(base64);
                     setGalleryPreviews((prev) => [...prev, cloudinaryUrl].slice(0, 20));
                 }
             } catch (err) {

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useRef } from "react";
 import { useBlog } from "@/lib/BlogContext";
 import { Lock, Send, Archive, ChevronDown, ChevronUp, Image as ImageIcon, Upload, X } from "lucide-react";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export default function BlogClient() {
     const { getApprovedBlogs, getArchivedBlogs, addBlog } = useBlog();
@@ -36,22 +37,6 @@ export default function BlogClient() {
         });
     };
 
-    // Upload image to Cloudinary
-    const uploadToCloudinary = async (base64Image: string): Promise<string> => {
-        const response = await fetch('/api/upload', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ image: base64Image, folder: 'dinterio/blog' }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to upload image');
-        }
-
-        const data = await response.json();
-        return data.url;
-    };
-
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -61,8 +46,11 @@ export default function BlogClient() {
                 // Show preview immediately
                 setImagePreview(base64);
                 // Upload to Cloudinary
-                const cloudinaryUrl = await uploadToCloudinary(base64);
-                setImagePreview(cloudinaryUrl);
+                const result = await uploadToCloudinary(base64, 'dinterio/blog');
+                if (!result.success || !result.url) {
+                    throw new Error(result.error || 'Upload failed');
+                }
+                setImagePreview(result.url);
             } catch (err) {
                 console.error("Error uploading image:", err);
                 alert("Failed to upload image. Please try again.");
