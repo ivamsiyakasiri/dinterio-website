@@ -31,6 +31,14 @@ export default function AdminPage() {
     const [galleryPreviews, setGalleryPreviews] = useState<string[]>([]);
     const [uploading, setUploading] = useState(false);
 
+    // Delete confirmation modal state
+    const [deleteModal, setDeleteModal] = useState<{
+        show: boolean;
+        type: "blog" | "project";
+        id: string;
+        name: string;
+    }>({ show: false, type: "blog", id: "", name: "" });
+
     const mainImageRef = useRef<HTMLInputElement>(null);
     const galleryRef = useRef<HTMLInputElement>(null);
 
@@ -48,16 +56,27 @@ export default function AdminPage() {
         }
     };
 
+    // Show delete confirmation modal
     const handleDeleteBlog = (id: string, title: string) => {
-        if (confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
-            deleteBlog(id);
-        }
+        setDeleteModal({ show: true, type: "blog", id, name: title });
     };
 
     const handleDeleteProject = (id: string, name: string) => {
-        if (confirm(`Are you sure you want to delete "${name}"? This action cannot be undone.`)) {
-            deleteProject(id);
+        setDeleteModal({ show: true, type: "project", id, name });
+    };
+
+    // Confirm delete action
+    const confirmDelete = () => {
+        if (deleteModal.type === "blog") {
+            deleteBlog(deleteModal.id);
+        } else {
+            deleteProject(deleteModal.id);
         }
+        setDeleteModal({ show: false, type: "blog", id: "", name: "" });
+    };
+
+    const cancelDelete = () => {
+        setDeleteModal({ show: false, type: "blog", id: "", name: "" });
     };
 
     // Convert file to base64 for preview and upload
@@ -195,6 +214,37 @@ export default function AdminPage() {
     // Admin Dashboard
     return (
         <div className="min-h-screen bg-gray-50 pt-32 pb-24">
+            {/* Delete Confirmation Modal */}
+            {deleteModal.show && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+                    <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-2xl">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="p-3 bg-red-100 rounded-full">
+                                <Trash2 className="text-red-600" size={24} />
+                            </div>
+                            <h3 className="text-xl font-serif font-bold text-dark">Confirm Delete</h3>
+                        </div>
+                        <p className="text-foreground/70 mb-6">
+                            Are you sure you want to delete <strong>&quot;{deleteModal.name}&quot;</strong>? This action cannot be undone.
+                        </p>
+                        <div className="flex gap-3 justify-end">
+                            <button
+                                onClick={cancelDelete}
+                                className="px-6 py-3 border border-gray-300 rounded-sm font-bold text-sm tracking-wider text-foreground/70 hover:bg-gray-100 transition-colors"
+                            >
+                                CANCEL
+                            </button>
+                            <button
+                                onClick={confirmDelete}
+                                className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-sm font-bold text-sm tracking-wider transition-colors flex items-center gap-2"
+                            >
+                                <Trash2 size={16} /> DELETE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
