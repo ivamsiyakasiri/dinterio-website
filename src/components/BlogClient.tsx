@@ -26,37 +26,30 @@ export default function BlogClient() {
     const approvedBlogs = getApprovedBlogs();
     const archivedBlogs = getArchivedBlogs();
 
-    // Compress and resize image to reduce localStorage usage (aggressive settings)
-    const compressImage = (file: File, maxWidth = 800, quality = 0.5): Promise<string> => {
+    // Convert file to base64
+    const fileToBase64 = (file: File): Promise<string> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = (event) => {
-                const img = document.createElement('img');
-                img.src = event.target?.result as string;
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-
-                    if (width > maxWidth) {
-                        height = (height * maxWidth) / width;
-                        width = maxWidth;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-
-                    const ctx = canvas.getContext('2d');
-                    ctx?.drawImage(img, 0, 0, width, height);
-
-                    const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
-                    resolve(compressedBase64);
-                };
-                img.onerror = reject;
-            };
+            reader.onload = () => resolve(reader.result as string);
             reader.onerror = reject;
         });
+    };
+
+    // Upload image to Cloudinary
+    const uploadToCloudinary = async (base64Image: string): Promise<string> => {
+        const response = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: base64Image, folder: 'dinterio/blog' }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to upload image');
+        }
+
+        const data = await response.json();
+        return data.url;
     };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,11 +57,16 @@ export default function BlogClient() {
         if (file) {
             setIsUploading(true);
             try {
-                const base64 = await compressImage(file);
+                const base64 = await fileToBase64(file);
+                // Show preview immediately
                 setImagePreview(base64);
+                // Upload to Cloudinary
+                const cloudinaryUrl = await uploadToCloudinary(base64);
+                setImagePreview(cloudinaryUrl);
             } catch (err) {
                 console.error("Error uploading image:", err);
                 alert("Failed to upload image. Please try again.");
+                setImagePreview("");
             }
             setIsUploading(false);
         }

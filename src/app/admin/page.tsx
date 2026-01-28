@@ -59,39 +59,30 @@ export default function AdminPage() {
         }
     };
 
-    // Compress and resize image to reduce localStorage usage (aggressive settings)
-    const compressImage = (file: File, maxWidth = 800, quality = 0.5): Promise<string> => {
+    // Convert file to base64 for preview and upload
+    const fileToBase64 = (file: File): Promise<string> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = (event) => {
-                const img = document.createElement('img');
-                img.src = event.target?.result as string;
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-
-                    // Scale down if larger than maxWidth
-                    if (width > maxWidth) {
-                        height = (height * maxWidth) / width;
-                        width = maxWidth;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-
-                    const ctx = canvas.getContext('2d');
-                    ctx?.drawImage(img, 0, 0, width, height);
-
-                    // Convert to compressed JPEG
-                    const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
-                    resolve(compressedBase64);
-                };
-                img.onerror = reject;
-            };
+            reader.onload = () => resolve(reader.result as string);
             reader.onerror = reject;
         });
+    };
+
+    // Upload image to Cloudinary
+    const uploadToCloudinary = async (base64Image: string, folder: string = 'dinterio/portfolio'): Promise<string> => {
+        const response = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: base64Image, folder }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to upload image');
+        }
+
+        const data = await response.json();
+        return data.url;
     };
 
     // Handle main image upload
@@ -100,10 +91,16 @@ export default function AdminPage() {
         if (file) {
             setUploading(true);
             try {
-                const base64 = await compressImage(file);
+                const base64 = await fileToBase64(file);
+                // Show preview immediately
                 setMainImagePreview(base64);
+                // Upload to Cloudinary in background
+                const cloudinaryUrl = await uploadToCloudinary(base64);
+                setMainImagePreview(cloudinaryUrl);
             } catch (err) {
                 console.error("Error uploading image:", err);
+                alert("Failed to upload image. Please try again.");
+                setMainImagePreview("");
             }
             setUploading(false);
         }
@@ -115,15 +112,16 @@ export default function AdminPage() {
         if (files) {
             setUploading(true);
             try {
-                const newImages: string[] = [];
-                const filesToProcess = Math.min(files.length, 10 - galleryPreviews.length);
+                const filesToProcess = Math.min(files.length, 20 - galleryPreviews.length);
                 for (let i = 0; i < filesToProcess; i++) {
-                    const base64 = await compressImage(files[i]);
-                    newImages.push(base64);
+                    const base64 = await fileToBase64(files[i]);
+                    // Upload each image to Cloudinary
+                    const cloudinaryUrl = await uploadToCloudinary(base64);
+                    setGalleryPreviews((prev) => [...prev, cloudinaryUrl].slice(0, 20));
                 }
-                setGalleryPreviews((prev) => [...prev, ...newImages].slice(0, 10));
             } catch (err) {
                 console.error("Error uploading images:", err);
+                alert("Failed to upload some images. Please try again.");
             }
             setUploading(false);
         }
@@ -151,7 +149,7 @@ export default function AdminPage() {
             category: newProject.category,
             description: newProject.description,
             mainImage: mainImagePreview,
-            images: allImages.slice(0, 10),
+            images: allImages.slice(0, 20),
         });
 
         // Reset form
@@ -310,10 +308,10 @@ export default function AdminPage() {
 
                                     {/* Gallery Images Upload */}
                                     <div>
-                                        <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">Gallery Images (Max 10)</label>
+                                        <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2 font-bold">Gallery Images (Max 20)</label>
                                         <input type="file" ref={galleryRef} accept="image/*" multiple onChange={handleGalleryUpload} className="hidden" />
-                                        <button type="button" onClick={() => galleryRef.current?.click()} disabled={galleryPreviews.length >= 10} className={`flex items-center gap-2 border-2 border-dashed rounded-sm px-6 py-4 transition-colors w-full justify-center mb-4 ${galleryPreviews.length >= 10 ? "border-gray-200 text-gray-400 cursor-not-allowed" : "border-gray-300 hover:border-gold text-foreground/60 hover:text-gold"}`}>
-                                            <Upload size={20} /> Add gallery images ({galleryPreviews.length}/10)
+                                        <button type="button" onClick={() => galleryRef.current?.click()} disabled={galleryPreviews.length >= 20} className={`flex items-center gap-2 border-2 border-dashed rounded-sm px-6 py-4 transition-colors w-full justify-center mb-4 ${galleryPreviews.length >= 20 ? "border-gray-200 text-gray-400 cursor-not-allowed" : "border-gray-300 hover:border-gold text-foreground/60 hover:text-gold"}`}>
+                                            <Upload size={20} /> Add gallery images ({galleryPreviews.length}/20)
                                         </button>
                                         {galleryPreviews.length > 0 && (
                                             <div className="flex flex-wrap gap-3">
