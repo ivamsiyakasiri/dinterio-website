@@ -29,59 +29,94 @@ interface BlogContextType {
     isAdmin: boolean;
     login: (username: string, password: string) => boolean;
     logout: () => void;
+
+    // Loading state
+    isLoaded: boolean;
 }
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
+
+// Helper to safely access localStorage
+const safeLocalStorage = {
+    getItem: (key: string): string | null => {
+        if (typeof window === "undefined") return null;
+        try {
+            return localStorage.getItem(key);
+        } catch {
+            return null;
+        }
+    },
+    setItem: (key: string, value: string): void => {
+        if (typeof window === "undefined") return;
+        try {
+            localStorage.setItem(key, value);
+        } catch (e) {
+            console.error("Failed to save to localStorage:", e);
+        }
+    },
+    removeItem: (key: string): void => {
+        if (typeof window === "undefined") return;
+        try {
+            localStorage.removeItem(key);
+        } catch {
+            // Ignore
+        }
+    },
+};
 
 export function BlogProvider({ children }: { children: ReactNode }) {
     const [blogs, setBlogs] = useState<BlogPost[]>(initialBlogs);
     const [projects, setProjects] = useState<PortfolioProject[]>(initialProjects);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    // Load data from localStorage on mount
+    // Load data from localStorage on mount (client-side only)
     useEffect(() => {
-        const storedBlogs = localStorage.getItem("dinterio_blogs");
-        if (storedBlogs) {
-            setBlogs(JSON.parse(storedBlogs));
+        // Only run on client
+        if (typeof window === "undefined") return;
+
+        try {
+            const storedBlogs = safeLocalStorage.getItem("dinterio_blogs");
+            if (storedBlogs) {
+                const parsed = JSON.parse(storedBlogs);
+                if (Array.isArray(parsed)) {
+                    setBlogs(parsed);
+                }
+            }
+            const storedProjects = safeLocalStorage.getItem("dinterio_projects");
+            if (storedProjects) {
+                const parsed = JSON.parse(storedProjects);
+                if (Array.isArray(parsed)) {
+                    setProjects(parsed);
+                }
+            }
+            const adminSession = safeLocalStorage.getItem("dinterio_admin");
+            if (adminSession === "true") {
+                setIsAdmin(true);
+            }
+        } catch (e) {
+            console.error("Error loading from localStorage:", e);
         }
-        const storedProjects = localStorage.getItem("dinterio_projects");
-        if (storedProjects) {
-            setProjects(JSON.parse(storedProjects));
-        }
-        const adminSession = localStorage.getItem("dinterio_admin");
-        if (adminSession === "true") {
-            setIsAdmin(true);
-        }
+
+        setIsLoaded(true);
     }, []);
 
-    // Save data to localStorage when changed (with error handling)
+    // Save data to localStorage when changed (only after initial load)
     useEffect(() => {
-        try {
-            localStorage.setItem("dinterio_blogs", JSON.stringify(blogs));
-        } catch (e) {
-            if (e instanceof DOMException && e.name === 'QuotaExceededError') {
-                alert("Storage full! Please delete some old blog posts to free up space.");
-            }
-            console.error("Failed to save blogs:", e);
-        }
-    }, [blogs]);
+        if (!isLoaded) return; // Don't save during initial load
+        safeLocalStorage.setItem("dinterio_blogs", JSON.stringify(blogs));
+    }, [blogs, isLoaded]);
 
     useEffect(() => {
-        try {
-            localStorage.setItem("dinterio_projects", JSON.stringify(projects));
-        } catch (e) {
-            if (e instanceof DOMException && e.name === 'QuotaExceededError') {
-                alert("Storage full! Please delete some old projects to free up space. Go to Admin → Portfolio Management and delete projects you no longer need.");
-            }
-            console.error("Failed to save projects:", e);
-        }
-    }, [projects]);
+        if (!isLoaded) return; // Don't save during initial load
+        safeLocalStorage.setItem("dinterio_projects", JSON.stringify(projects));
+    }, [projects, isLoaded]);
 
     // Auth
     const login = (username: string, password: string): boolean => {
         if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
             setIsAdmin(true);
-            localStorage.setItem("dinterio_admin", "true");
+            safeLocalStorage.setItem("dinterio_admin", "true");
             return true;
         }
         return false;
@@ -89,7 +124,7 @@ export function BlogProvider({ children }: { children: ReactNode }) {
 
     const logout = () => {
         setIsAdmin(false);
-        localStorage.removeItem("dinterio_admin");
+        safeLocalStorage.removeItem("dinterio_admin");
     };
 
     // Blog functions
@@ -183,6 +218,7 @@ export function BlogProvider({ children }: { children: ReactNode }) {
                 isAdmin,
                 login,
                 logout,
+                isLoaded,
             }}
         >
             {children}
